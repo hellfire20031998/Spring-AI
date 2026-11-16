@@ -27,14 +27,15 @@ public class RecipeService {
              
                 """;
 
-        PromptTemplate promptTemplate = new PromptTemplate(template);
+
         Map<String,Object> params= Map.of(
                 "ingredients",ingredients,
                 "cuisine",cuisine,
                 "dietaryRestrictions",dietaryRestrictions
         );
+        PromptTemplate promptTemplate = new PromptTemplate(template);
 
         Prompt prompt = promptTemplate.create(params);
-       return chatModel.call(prompt).getResult().getOutput().getContent();
+       return chatModel.call(prompt).getResult().getOutput().getText();
     }
 }

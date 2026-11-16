@@ -39,11 +39,11 @@ public class ImageService {
         ImageResponse imageResponse = openAiImageModel.call(
                 new ImagePrompt(prompt,
                         OpenAiImageOptions.builder()
-                                .withModel("dall-e-2")
-                                .withQuality(quality)
-                                .withN(n)
-                                .withHeight(height)
-                                .withWidth(width)
+                                .model("dall-e-2")
+                                .quality(quality)
+                                .n(n)
+                                .height(height)
+                                .width(width)
                                 .build()));
         return  imageResponse;
     }

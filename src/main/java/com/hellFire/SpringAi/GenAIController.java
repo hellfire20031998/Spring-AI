@@ -38,6 +38,7 @@ public class GenAIController {
 
     @GetMapping("ask-ai-options")
     public String getResponseOptions(@RequestParam String prompt){
+        System.out.println(prompt);
         return chatService.getResponseOptions(prompt);
     }
 
@@ -67,10 +68,10 @@ public class GenAIController {
     @GetMapping("recipe-creator")
     public String recipeCreator(@RequestParam String ingredients,
                                       @RequestParam(defaultValue = "any") String cuisine,
-                                      @RequestParam(defaultValue = "")String dietaryRestriction){
+                                      @RequestParam(defaultValue = "")String dietaryRestrictions){
 
         System.out.println(ingredients);
-        return recipeService.createRecipe(ingredients,cuisine,dietaryRestriction);
+        return recipeService.createRecipe(ingredients,cuisine,dietaryRestrictions);
     }
 
 
