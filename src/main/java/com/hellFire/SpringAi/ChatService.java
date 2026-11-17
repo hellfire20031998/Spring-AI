@@ -2,7 +2,12 @@ package com.hellFire.SpringAi;
 
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.prompt.Prompt;
+import org.springframework.ai.chat.prompt.PromptTemplate;
+import org.springframework.ai.converter.ListOutputConverter;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ChatService {
@@ -34,6 +39,23 @@ public class ChatService {
         System.out.println(response);
 
         return response;
+    }
+
+    public List<String> getList(String subject) {
+        ListOutputConverter converter = new ListOutputConverter();
+
+        // 1. Put the converter's format instructions into the prompt
+        PromptTemplate template = new PromptTemplate("""
+            List five {subject}.
+            {format}
+            """);
+        Prompt prompt = template.create(Map.of(
+                "subject", subject,
+                "format", converter.getFormat()));
+
+        // 2. Call Gemini, then 3. turn the text reply into a List
+        String text = chatModel.call(prompt).getResult().getOutput().getText();
+        return converter.convert(text);
     }
 
 

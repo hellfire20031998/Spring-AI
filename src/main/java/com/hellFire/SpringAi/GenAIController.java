@@ -74,6 +74,20 @@ public class GenAIController {
         return recipeService.createRecipe(ingredients,cuisine,dietaryRestrictions);
     }
 
+    // Structured version: returns a Recipe object (sent as JSON) via BeanOutputConverter
+    @GetMapping("recipe")
+    public Recipe recipe(@RequestParam String ingredients,
+                         @RequestParam(defaultValue = "any") String cuisine,
+                         @RequestParam(defaultValue = "") String dietaryRestrictions) {
+        return recipeService.createRecipeStructured(ingredients, cuisine, dietaryRestrictions);
+    }
+
+    @GetMapping("list")
+    public List<String> getList(@RequestParam String subject) {
+        return chatService.getList(subject);
+    }
+
+
 
 
 
